@@ -234,10 +234,11 @@ header {
     }
 
     .card {
-        width: 90%; /* Ajustez à 90% de la largeur de l'écran pour laisser un peu d'espace de chaque côté */
-        margin: 15px auto; /* Centre la carte horizontalement avec 15px de marge en haut et en bas */
-        opacity: 1; /* Assurez-vous que la carte est visible sur les appareils mobiles */
+        width: 90%;
+        margin: 15px auto;
+        opacity: 1;
         visibility: visible;
+        overflow-x: hidden;
     }
 
     .card img {
