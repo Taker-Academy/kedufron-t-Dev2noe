@@ -93,9 +93,7 @@ header {
   }
 
   .acceuil-image {
-    scale: 1.7;
-    margin-left: 600px;
-    margin-top: 200px;
+    margin-bottom: -50px;
   }
 
   .title-articles {
@@ -109,7 +107,7 @@ header {
     flex-wrap: wrap;
     justify-content: space-around; /* Cela crée un espace autour de chaque carte */
     padding: 0 20px; /* Ajoutez du padding sur les côtés du conteneur pour créer de l'espace sur les côtés */
-    margin: 0 -15px; /* Ajustez en fonction de votre mise en page */
+    margin: 0 -15px;
     margin-top: 130px; /* Espace par rapport au haut de la page ou à l'élément précédent */
     background-color: #f5f5f5; /* Couleur de fond gris clair */
   }
@@ -193,13 +191,9 @@ header {
     }
 
     .navbar {
-        height: 30px;
-        margin-top: 15px;
+        height: 70px;
+        margin-top: -2px;
         margin-bottom: -150px;
-    }
-
-    .navbar-logo img {
-      display: none;
     }
 
     .navbar-item {
@@ -220,8 +214,8 @@ header {
     }
 
     .navbar-text {
-      font-size: 16px; /* Ajustez la taille de la police comme nécessaire */
-      color: white; /* ou toute autre couleur appropriée */
+      font-size: 16px;
+      color: white; 
     }
 
     .mobile_acceuil {
@@ -229,6 +223,33 @@ header {
         scale: 0.5;
         margin-left: -210px;
         margin-top: -250px;
+    }
+
+    .cards-container {
+        flex-direction: column; /* Les éléments s'affichent en colonne */
+        align-items: center; /* Centre les cartes horizontalement */
+        padding: 0;
+        margin: 0;
+        margin-top: 130px;
+    }
+
+    .card {
+        width: 90%; /* Ajustez à 90% de la largeur de l'écran pour laisser un peu d'espace de chaque côté */
+        margin: 15px auto; /* Centre la carte horizontalement avec 15px de marge en haut et en bas */
+        opacity: 1; /* Assurez-vous que la carte est visible sur les appareils mobiles */
+        visibility: visible;
+    }
+
+    .card img {
+        width: 100%;
+        height: 250px;
+        border-radius: 20px;
+        display: block;
+        scale: 1.2;
+    }
+
+    .title-articles {
+        margin-top: -200px;
     }
 
   }
