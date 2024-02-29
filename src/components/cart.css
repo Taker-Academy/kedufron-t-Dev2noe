@@ -1,0 +1,45 @@
+.cart-container {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+}
+
+.cart-header {
+    margin-top: 150px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.cart-item-image {
+    width: 50px; /* ou une autre taille appropriée */
+    height: 50px;
+    margin-right: 10px;
+}
+
+.cart-item-quantity {
+    display: flex;
+    align-items: center;
+}
+
+.cart-item-quantity button {
+    margin: 0 5px;
+}
+
+.remove-item {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: red;
+}
+
+/* Ajoutez plus de styles CSS pour correspondre à votre design */

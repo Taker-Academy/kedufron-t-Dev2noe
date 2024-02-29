@@ -1,24 +1,48 @@
-// fonction pour importer le header
-document.addEventListener("DOMContentLoaded", function() {
-    var headerPlaceholder = document.getElementById('header-placeholder');
-    if (headerPlaceholder) {
-        fetch("header.html")
-            .then(response => response.text())
-            .then(data => {
-                headerPlaceholder.innerHTML = data;
-            })
-            .catch(error => console.error('Error loading the header:', error));
+function save_basket(basket)
+{
+    localStorage.setItem("basket", JSON.stringify(basket));
+}
+
+function get_basket()
+{
+    let basket = localStorage.getItem("basket");
+
+    if (basket == null) {
+        return [];
+    } else {
+        return JSON.parse(basket)
     }
-});
+}
 
-// fonction pour importer le footer
-document.addEventListener("DOMContentLoaded", function() {
-    fetch('footer.html')
-      .then(response => response.text())
-      // insère le contenu dans l'élément avec la bonne id
-      .then(text => document.getElementById('footer-placeholder').innerHTML = text);
-});
+function add_basket(product)
+{
+    let basket = get_basket();
+    let found_product = basket.find(p => p.id == product.id);
 
-// Écouter l'événement de défilement et exécuter la fonction
-window.addEventListener('scroll', add_visible_class);
+    if (found_product != undefined) {
+        found_product.quantity++;
+    } else {
+        product.quantity = 1;
+        basket.push(product);
+    }
+    save_basket(basket);
+}
 
+function remove_from_basket(product)
+{
+    let basket = get_basket();
+
+    basket = basket.filtrer(p => p.id != product.id);
+    save_basket(basket);
+}
+
+function change_quantity(product, quantity)
+{
+    let basket = get_basket();
+    let found_product = basket.find(p => p.id == product.id);
+
+    if (found_product != undefined) {
+        found_product.quantity += quantity; 
+    }
+    save_basket(basket);
+}

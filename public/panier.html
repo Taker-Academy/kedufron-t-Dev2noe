@@ -5,11 +5,28 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Clockflow - Panier</title>
         <link rel="stylesheet" href="../src/components/acceuil.css">
+        <link rel="stylesheet" href="../src/components/cart.css">
         <script src="https://kit.fontawesome.com/98266dc4fa.js" crossorigin="anonymous"></script>
-        <script src="../src/components/cart.js"></script>
     </head>
     <body>
         <div id="header-placeholder"></div>
+        <main class="cart-container">
+            <h1>Your Shopping Cart</h1>
+            <div class="cart-header">
+                <span>Product</span>
+                <span>Price</span>
+                <span>Quantity</span>
+                <span>Total</span>
+            </div>
+            <div id="cart-items">
+                <!-- Les articles du panier seront insérés ici -->
+            </div>
+            <div class="cart-summary">
+                <!-- Résumé du panier, total, boutons de checkout, etc. -->
+            </div>
+        </main>
+        <script src="../src/components/header_footer.js"></script>
+        <script src="../src/components/cart.js"></script>
 
 
 
