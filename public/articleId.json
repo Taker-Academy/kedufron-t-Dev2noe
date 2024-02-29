@@ -1,0 +1,61 @@
+{
+    "articles": [
+        {
+            "id": "solaris",
+            "title": "Solaris",
+            "description": "Boîtier en acier noir robuste avec un diamètre de 42mm, épaisseur de 10mm. Cadran texturé noir évoquant un style solaire, protégé par un verre saphir résistant aux rayures. \nMouvement quartz précis avec affichage de la date.\nBracelet en maille d'acier noire avec une fermeture déployante, pour un tour de poignet jusqu'à 20cm.\nRésistance à l'eau jusqu'à 50m, adaptée pour nager en surface.",
+            "price": "250\u20ac",
+            "imageUrl": "../src/assets/solaris.jpg"
+            
+        },
+        {
+            "id": "aurora",
+            "title": "Aurora",
+            "description": "Boîtier classique en acier avec finition bleu nuit, diamètre de 40mm.\nCadran bleu profond avec des reflets rappelant les aurores boréales, sous un verre minéral.\nMouvement automatique visible à travers un fond transparent.\nÉtanchéité de 30m, idéale pour résister aux éclaboussures quotidiennes.\n",
+            "price": "300\u20ac",
+            "imageUrl": "../src/assets/aurora.jpg"
+        },
+        {
+            "id": "ventus",
+            "title": "Ventus",
+            "description": "Edition spéciale avec boîtier en titane gris de 44mm et cadran à motif marbre.\nMouvement mécanique à remontage manuel, avec une réserve de marche de 48 heures.\nRésistance à l'eau de 100m, convenant pour la natation",
+            "price": "350\u20ac",
+            "imageUrl": "../src/assets/ventus.jpg"
+        },
+        {
+            "id": "orion",
+            "title": "Orion",
+            "description": "Conception étoilée sur cadran bordeaux, boîtier en acier noir de 38mm.\nVerre saphir bombé pour une allure vintage avec aiguilles luminescentes.\nEtanche jusqu'à 50m, convient pour la douche ou la nage en surface.\n",
+            "price": "400\u20ac",
+            "imageUrl": "../src/assets/Orion.jpg"
+        },
+        {
+            "id": "terra",
+            "title": "Terra",
+            "description": "Boîtier en acier inoxydable avec une finition bleue élégante, diamètre de 39mm.\nBracelet en maille d'acier bleue assorti, avec fermeture sécurisée pour un ajustement confortable.\nRésistance à l'eau jusqu'à 30m, résiste aux éclaboussures et à la pluie.\n",
+            "price": "450\u20ac",
+            "imageUrl": "../src/assets/Terra.jpg"
+        },
+        {
+            "id": "nova",
+            "title": "Nova",
+            "description": "Boîtier en acier avec finition noire mate, diamètre de 41mm, épaisseur de 11mm.\nCadran noir avec détails rouges vifs, trois sous-cadrans pour fonctions chronographe et tachymètre.\nBracelet NATO en tissu noir et rouge, offrant un confort durable et une résistance à l'usure.",
+            "price": "500\u20ac",
+            "imageUrl": "../src/assets/nova.jpg"
+        },
+        {
+            "id": "sea",
+            "title": "Sea",
+            "description": "Design raffiné avec boîtier en acier poli, cadran rouge vin, et diamètre de 40mm.\nAiguilles et marqueurs du temps élégamment dessinés, avec mouvement automatique apparent.\n",
+            "price": "550\u20ac",
+            "imageUrl": "../src/assets/Sea.jpg"
+        },
+        {
+            "id": "caya",
+            "title": "Caya",
+            "description": " Boîtier classique en acier, cadran noir avec des chiffres arabes pour une lisibilité optimale, diamètre de 38mm.\nMouvement à quartz avec une fonctionnalité de date discrète située à 6 heures.\n",
+            "price": "600\u20ac",
+            "imageUrl": "../src/assets/caya.jpg"
+        }
+    ]
+}

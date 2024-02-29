@@ -1,0 +1,123 @@
+@font-face {
+    font-family: 'my_font';
+    src: url('../assets/Coldiac.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'my_desc_font';
+    src: url('../assets/Audrey-Normal.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    background-image: url('../assets/article-background.png');
+}
+
+
+
+.article-title {
+    text-align: left;
+    margin-bottom: 50px;
+    font-size: 50px;
+}
+
+.article-content {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    width: 80%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+.article-content img {
+    scale: 0.5;
+    margin-left: -1000px;
+    margin-top: -300px;
+}
+
+.article-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: black;
+    color: white;
+    padding: 50px;
+    height: 100%;
+    margin-left: -550px;
+    margin-top: 150px;
+}
+
+.article-price {
+    /* Styles pour le prix */
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.add-to-cart-button {
+    font-family: 'my_font', sans-serif;
+    font-weight: 900;
+    border: none;
+    display: inline-block;
+    background-color: white;
+    color: black;
+    font-size: 16px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    width: 400px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.article-description {
+    font-family: 'consolas';
+    font-size: 20px;
+}
+
+/* Style pour le survol du bouton */
+.add-to-cart-button:hover {
+    background-color: #f0f0f0; /* Légèrement plus foncé que le blanc */
+}
+
+/* Style pour le bouton lorsqu'il est cliqué */
+.add-to-cart-button:active {
+    background-color: #e0e0e0; /* Encore plus foncé pour l'effet cliqué */
+}
+
+@media (max-width: 768px) {
+    .article-content {
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+    }
+
+    .article-content img {
+        margin: 0;
+        margin-left: -5px;
+        width: 100%;
+        scale: 2;
+        margin-top: 100px;
+    }
+
+    .article-info {
+        margin: 0;
+        padding: 40px;
+        margin-left: -40px;
+        margin-top: 150px;
+    }
+
+    .add-to-cart-button {
+        align-self: center;
+    }
+
+
+
+}

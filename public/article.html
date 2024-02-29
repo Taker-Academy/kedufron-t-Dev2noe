@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <title>Page de Détail de l'Article</title>
+    <link rel="stylesheet" href="../src/components/article.css">
+    <link rel="stylesheet" href="../src/components/acceuil.css">
+    <script src="https://kit.fontawesome.com/98266dc4fa.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../src/components/article-detail.js" defer></script>
+</head>
+<body>
+    <!-- header importer via header.html -->
+    <div id="header-placeholder" style="margin-bottom: 100px; margin-left: -30px;"></div>
+    <div class="article-content">
+        <img id="articleImage" src="" alt="Image de l'article">
+        <!-- déscription, nom, prix, button pour ajouter au cart -->
+        <div class="article-info">
+            <h1 id="articleTitle" class="article-title"></h1>
+            <div id="articlePrice" class="article-price"></div>
+            <div id="articleDescription" class="article-description"></div>
+            <button id="addToCartButton" class="add-to-cart-button">Ajouter au panier</button>
+            <!-- Plus de détails spécifiques à l'article ici -->
+        </div>
+    </div>
+    <div id="footer-placeholder"></div>
+</body>
+</html>
