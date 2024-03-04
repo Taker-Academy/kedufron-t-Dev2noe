@@ -49,7 +49,7 @@
 .cart-item-image {
     height: 100%;
     width: 210px;
-    margin-left: -50px;
+    margin-left: -80px;
 }
 
 .cart-item-title {
@@ -57,9 +57,16 @@
     font-size: 40px;
 }
 
-.cart-item-price {
-    margin-left: -50px;
+.cart-item-quantity {
+    margin-right: -130px;
+    margin-left: 150px;
 }
+
+.remove-item {
+ margin-right: -50px;
+}
+
+
 @media (max-width: 768px) {
 
 
