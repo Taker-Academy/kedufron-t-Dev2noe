@@ -42,4 +42,27 @@
     color: red;
 }
 
-/* Ajoutez plus de styles CSS pour correspondre à votre design */
+.cart-item {
+    height: 150px;
+}
+
+.cart-item-image {
+    height: 100%;
+    width: 210px;
+    margin-left: -50px;
+}
+
+.cart-item-title {
+    margin-left: -200px;
+    font-size: 40px;
+}
+
+.cart-item-price {
+    margin-left: -50px;
+}
+@media (max-width: 768px) {
+
+
+
+
+}

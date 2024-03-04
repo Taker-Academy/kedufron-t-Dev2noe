@@ -31,7 +31,17 @@ document.addEventListener("DOMContentLoaded", function()
                 change_quantity(product.id, -1);
                 loadCartItems();
             });
-
+            const quantityInput = cartItem.querySelector('input[type=number]');
+            quantityInput.addEventListener('change', function() {
+                let newQuantity = parseInt(quantityInput.value, 10);
+                if (isNaN(newQuantity) || newQuantity < 1) {
+                    alert('La quantité ne peut pas être inférieure à 1.');
+                    quantityInput.value = product.quantity;
+                    return;
+                }
+                change_quantity(product.id, newQuantity - product.quantity);
+                loadCartItems();
+            });
             cartItemsContainer.appendChild(cartItem);
         });
     }
