@@ -19,7 +19,21 @@
                 <span>Total</span>
             </div>
             <div id="cart-items">
-                <!-- Les articles du panier seront insérés ici -->
+                <!-- Template pour un article du panier -->
+                <template id="cart-item-template">
+                    <div class="cart-item">
+                        <img class="cart-item-image" src="" alt="Product Image">
+                        <span class="cart-item-title">Product Name</span>
+                        <span class="cart-item-price">$0.00</span>
+                        <div class="cart-item-quantity">
+                            <button class="quantity-minus">-</button>
+                            <input type="number" value="1">
+                            <button class="quantity-plus">+</button>
+                        </div>
+                        <span class="cart-item-total">$0.00</span>
+                        <button class="remove-item">Remove</button>
+                    </div>
+                </template>
             </div>
             <div class="cart-summary">
                 <!-- Résumé du panier, total, boutons de checkout, etc. -->
@@ -27,9 +41,6 @@
         </main>
         <script src="../src/components/header_footer.js"></script>
         <script src="../src/components/cart.js"></script>
-
-
-
     </body>
 
 
