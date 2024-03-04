@@ -63,13 +63,44 @@
 }
 
 .remove-item {
- margin-right: -50px;
+    margin-right: -50px;
 }
 
 
 @media (max-width: 768px) {
+    .cart-header {
+        gap: 40px;
+        margin-left: -25px;
+    }
 
+    .cart-item-title {
+        display: none;
+    }
+    .cart-item-quantity {
+        margin: 0;
+        scale: 0.9;
+        margin-right: -30px;
+    }
 
-
+    .quantity-input {
+        width: 40px;
+    }
+    .remove-item {
+        margin: 0;
+        margin-right: -30px;
+    }
+    .cart-item-image {
+        scale : 0.85;
+        margin-right: 0;
+        margin-left: -100px;
+    }
+    .cart-item-price {
+        margin-left: -70px;
+        z-index: 1000;
+    }
+    .cart-item-total {
+        margin-right: -20px;
+        margin-left: 20px;
+    }
 
 }
