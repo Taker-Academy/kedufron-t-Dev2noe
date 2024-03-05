@@ -43,14 +43,14 @@ document.addEventListener("DOMContentLoaded", function()
                 loadCartItems();
             });
             cartItemsContainer.appendChild(cartItem);
-            const totalAmount = calculate_total();
-            const totalElement = document.getElementById('total-amount');
-            if (totalElement) {
-                totalElement.textContent = `$${totalAmount}`; // Mettez à jour le contenu de l'élément total avec le montant total
-            }
         });
+        const totalAmount = calculate_total();
+        const totalElement = document.getElementById('total-amount');
+        if (totalElement) {
+            totalElement.textContent = `$${totalAmount}`;
+        }
     }
-    loadCartItems(); // Appelez cette fonction pour charger les articles lorsque la page est chargée
+    loadCartItems();
 });
 
 function save_basket(basket)
@@ -63,7 +63,7 @@ function get_basket()
     let basket = localStorage.getItem("basket");
 
     if (basket == null) {
-        return []; // on créer un new cart (tableau vide)
+        return []; // on créer un new basket
     } else {
         return JSON.parse(basket); //on return le tableau chiffré en json
     }
@@ -107,12 +107,19 @@ function change_quantity(productId, quantity)
 
 function calculate_total()
 {
-    const basket = get_basket(); // Récupère le panier du localStorage
+    let basket = get_basket();
     let total = 0;
 
+    if (basket == []) {
+        return total;
+    }
     basket.forEach(item => {
-        total += item.price * item.quantity; // Calcule le total
+        let price = Number(item.price.replace('€', ''));
+        if (!isNaN(price) && typeof item.quantity === 'number') {
+            total += price * item.quantity;
+        } else {
+            console.error('Invalid item in basket:', item);
+        }
     });
-
-    return total.toFixed(2); // Retourne le total formaté en chaîne de caractères avec deux décimales
+    return total.toFixed(2); // Returns the total formatted as a string with two decimals
 }
