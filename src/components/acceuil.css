@@ -66,6 +66,19 @@ header {
     transform: scale(1.2);
 }
 
+.cart-badge {
+    background-color: red;
+    color: white;
+    border-radius: 50%; /* Rend le badge circulaire */
+    padding: 2px 6px; /* Petit rembourrage autour du texte */
+    font-size: 0.7em; /* Taille de police plus petite que celle du texte normal */
+    position: relative;
+    top: -10px;
+    right: -10px;
+    z-index: 10;
+    margin-left: -20px;
+}
+
 .navbar-icons {
     flex: 1;
     display: flex;
