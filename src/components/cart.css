@@ -1,3 +1,8 @@
+main {
+    margin-top: 20px;
+    scale: 1.1;
+}
+
 .cart-container {
     width: 80%;
     margin: auto;
@@ -67,9 +72,18 @@
 }
 
 .cart-summary {
+    display: flex; /* Utiliser Flexbox pour la mise en page */
+    justify-content: space-between; /* Espacer les éléments */
     padding: 20px;
     background: #f8f8f8;
     margin-top: 30px;
+    border-radius: 8px;
+}
+
+
+.checkout-form-wrapper {
+    flex: 1; /* Permet au formulaire de grandir et remplir l'espace */
+    margin-right: 20px; /* Ajouter un peu d'espace entre le formulaire et le résumé */
 }
 
 #checkout-form {
@@ -90,14 +104,15 @@
 }
 
 #finalize-order {
-    padding: 15px 30px;
-    background-color: #5cb85c;
+    padding: 20px 30px;
+    background-color: #000000;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    width: 100%;
+    width: 117%;
+    margin-top: 10px;
 }
 
 #finalize-order:hover {
@@ -107,6 +122,10 @@
 
 
 @media (max-width: 768px) {
+    main {
+        scale: 1;
+    }
+
     .cart-header {
         gap: 40px;
         margin-left: -25px;

@@ -43,6 +43,11 @@ document.addEventListener("DOMContentLoaded", function()
                 loadCartItems();
             });
             cartItemsContainer.appendChild(cartItem);
+            const totalAmount = calculate_total();
+            const totalElement = document.getElementById('total-amount');
+            if (totalElement) {
+                totalElement.textContent = `$${totalAmount}`; // Mettez à jour le contenu de l'élément total avec le montant total
+            }
         });
     }
     loadCartItems(); // Appelez cette fonction pour charger les articles lorsque la page est chargée
@@ -98,4 +103,16 @@ function change_quantity(productId, quantity)
         }
         save_basket(basket);
     }
+}
+
+function calculate_total()
+{
+    const basket = get_basket(); // Récupère le panier du localStorage
+    let total = 0;
+
+    basket.forEach(item => {
+        total += item.price * item.quantity; // Calcule le total
+    });
+
+    return total.toFixed(2); // Retourne le total formaté en chaîne de caractères avec deux décimales
 }
