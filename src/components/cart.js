@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function()
             // gestionnaires d'événements pour les boutons plus, moins, remove, quantité
             cartItem.querySelector('.remove-item').addEventListener('click', function() {
                 remove_from_basket(product.id);
-                updateCartBadge();
+            
                 loadCartItems();
             });
             cartItem.querySelector('.quantity-plus').addEventListener('click', function() {
@@ -52,13 +52,13 @@ document.addEventListener("DOMContentLoaded", function()
         }
     }
     loadCartItems();
-    updateCartBadge();
+
 });
 
 function save_basket(basket)
 {
     localStorage.setItem("basket", JSON.stringify(basket));
-    updateCartBadge();
+
 }
 
 function get_basket()
@@ -82,10 +82,10 @@ function add_basket(product)
     } else {
         product.quantity = 1;
         basket.push(product);
-        updateCartBadge();
+    
     }
     save_basket(basket);
-    updateCartBadge();
+
 }
 
 function remove_from_basket(productId)
@@ -94,7 +94,7 @@ function remove_from_basket(productId)
 
     basket = basket.filter(p => p.id != productId);
     save_basket(basket);
-    updateCartBadge();
+
 }
 
 function change_quantity(productId, quantity)
@@ -109,7 +109,7 @@ function change_quantity(productId, quantity)
         }
         save_basket(basket);
     }
-    updateCartBadge();
+
 }
 
 function calculate_total()
@@ -129,15 +129,4 @@ function calculate_total()
         }
     });
     return total.toFixed(2); // Returns the total formatted as a string with two decimals
-}
-
-
-function updateCartBadge()
-{
-    const basket = get_basket(); // Assurez-vous que cette fonction renvoie votre panier depuis localStorage
-    const badge = document.querySelector('.cart-badge');
-
-    if (badge) {
-        badge.textContent = basket.length; // Met à jour le badge avec le nombre d'articles dans le panier
-    }
 }
