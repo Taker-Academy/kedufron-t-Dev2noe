@@ -133,8 +133,9 @@ body {
 }
 
 @media (max-width: 768px) {
-    main {
-        scale: 1;
+
+    .cart-container {
+        width: 80%;
     }
 
     .cart-header {
@@ -170,6 +171,16 @@ body {
     .cart-item-total {
         margin-right: -20px;
         margin-left: 20px;
+    }
+
+    .cart-summary {
+        width: 115%;
+        margin-left: -40px;
+    }
+
+    #payment-methods {
+        scale: 1;
+        margin-left: 5px;
     }
 
 }
