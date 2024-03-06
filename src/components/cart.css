@@ -1,10 +1,9 @@
-main {
-    margin-top: 20px;
-    scale: 1.1;
+body {
+    background-image: url('../assets/article-background.png');
 }
 
 .cart-container {
-    width: 80%;
+    width: 92%;
     margin: auto;
     text-align: center;
 }
@@ -72,18 +71,16 @@ main {
 }
 
 .cart-summary {
-    display: flex; /* Utiliser Flexbox pour la mise en page */
-    justify-content: space-between; /* Espacer les éléments */
+    display: flex;
     padding: 20px;
     background: #f8f8f8;
     margin-top: 30px;
     border-radius: 8px;
 }
 
-
 .checkout-form-wrapper {
-    flex: 1; /* Permet au formulaire de grandir et remplir l'espace */
-    margin-right: 20px; /* Ajouter un peu d'espace entre le formulaire et le résumé */
+    flex: 1;
+    margin-right: 20px;
 }
 
 #checkout-form {
@@ -119,7 +116,21 @@ main {
     background-color: #4cae4c;
 }
 
+.order-summary {
+    flex: 1; /* Cela donnera au résumé de la commande la même flexibilité que le formulaire */
+    /* ... autres styles ... */
+}
 
+#payment-methods {
+    width: 100%; /* Contrôle la taille de l'image */ /* Maintient le ratio d'aspect de l'image */
+    scale: 0.6;
+    margin-left: 40px;
+}
+
+.order-summary p {
+    font-size: 30px;
+    margin-top: 70px;
+}
 
 @media (max-width: 768px) {
     main {
