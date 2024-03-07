@@ -19,8 +19,47 @@ function add_visible_class()
     });
 }
 
-function get_item_by_id(itemId)
+function get_update_articles()
 {
+    const itemsUrl = 'https://api.kedufront.juniortaker.com/item/';
+
+    fetch(itemsUrl)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(items => {
+        const container = document.querySelector('.cards-container');
+        container.innerHTML = '';
+
+        items.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <a href="article.html?articleId=${item._id}">
+                    <img data-item-id="${item._id}" alt="${item.name}" />
+                </a>
+                <div class="card-info">
+                    <h3>${item.name}</h3>
+                    <p>${item.description}</p>
+                    <p class="price">${item.price}€</p>
+                    <a href="article.html?articleId=${item._id}" class="button">Voir produit</a>
+                </div>
+            `;
+            container.appendChild(card);
+            // Appeler get_item_by_id pour récupérer l'image de l'article
+            get_item_by_id(item._id);
+        });
+    })
+    .catch(error => {
+        console.error('There has been a problem with your fetch operation:', error);
+    });
+}
+
+// Cette fonction va chercher l'image pour chaque article
+function get_item_by_id(itemId) {
     const imageUrl = `https://api.kedufront.juniortaker.com/item/picture/${itemId}`;
 
     fetch(imageUrl)
@@ -28,7 +67,6 @@ function get_item_by_id(itemId)
         if (!response.ok) {
             throw new Error('Image not found for item with ID ' + itemId);
         }
-        // en blob car nous attendons une image
         return response.blob();
     })
     .then(imageBlob => {
@@ -40,54 +78,8 @@ function get_item_by_id(itemId)
     });
 }
 
-// Appeler cette fonction pour chaque article dont vous avez besoin de récupérer l'image
-document.addEventListener('DOMContentLoaded', function() {
-    const itemIds = [1, 2, 3, 4, 5, 6];
-    itemIds.forEach(get_item_by_id);
-});
-
-// Cette fonction va chercher les détails de tous les articles de l'API et les affiche
-function fetchItemsAndUpdateUI() {
-    // URL de l'API pour récupérer tous les articles
-    const itemsUrl = 'https://api.kedufront.juniortaker.com/item/';
-
-    fetch(itemsUrl)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(items => {
-        // Supposons que vous avez un conteneur pour vos articles dans votre HTML
-        const container = document.querySelector('.cards-container');
-        container.innerHTML = ''; // Nettoyez le conteneur avant d'ajouter de nouveaux éléments
-        
-        // Itérer sur chaque article et construire la structure HTML
-        items.forEach(item => {
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.innerHTML = `
-                <a href="article.html?articleId=${item._id}">
-                    <img src="${item.image}" alt="${item.name}" />
-                </a>
-                <div class="card-info">
-                    <h3>${item.name}</h3>
-                    <p>${item.description}</p>
-                    <p class="price">${item.price}€</p>
-                    <a href="article.html?articleId=${item._id}" class="button">Voir produit</a>
-                </div>
-            `;
-            container.appendChild(card);
-        });
-    })
-    .catch(error => {
-        console.error('There has been a problem with your fetch operation:', error);
-    });
-}
-
 // Exécutez cette fonction au chargement de la page pour mettre à jour l'interface utilisateur avec les données de l'API
-document.addEventListener('DOMContentLoaded', fetchItemsAndUpdateUI);
+document.addEventListener('DOMContentLoaded', get_update_articles);
 
 
 // Écouter l'événement de défilement et exécuter la fonction

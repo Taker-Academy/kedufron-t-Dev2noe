@@ -11,6 +11,8 @@ body, html {
     padding: 0;
     overflow-x: hidden;
     font-family: 'Fredoka One';
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(238,229,173,0.9934174353335085) 0%, rgba(255,173,0,1) 100%);
 }
 
 header {
@@ -40,11 +42,11 @@ header {
 .navbar-logo {
     flex: 1;
     text-align: right;
-    margin-right: -400px;
+    margin-right: -200px;
     text-decoration: none;
     max-width: 100%;
-    font-size: 100px;
-    color: black;
+    font-size: 80px;
+    color: rgb(255, 176, 57);
 }
 
 .navbar-menu {
@@ -56,7 +58,7 @@ header {
 
 .navbar-item {
     text-decoration: none;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 176, 57);
     font-weight: 900;
     font-size: larger;
     transition: transform 0.3s ease;
@@ -98,31 +100,34 @@ header {
 
 .title-articles {
     margin-left: 50px;
-    margin-top: 200px;
+    margin-top: 80px;
     margin-bottom: -100px;
-    }
+    color: rgb(151, 95, 4);
+}
 
 .cards-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 0 20px;
-    margin: 0 -15px;
-    margin-top: 130px;
-    background-color: #f5f5f5;
+    justify-content: space-around; /* ou 'space-between' pour un espacement égal entre les cartes */
+    align-items: stretch; /* Cela assure que toutes les cartes ont la même hauteur */
+    padding: 0; /* Ajustez selon les besoins */
+    margin-top: 130px; /* Espace depuis le haut */
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(238,229,173,0.9934174353335085) 0%, rgba(255,173,0,1) 100%);
 }
 
 .card {
-    width: calc(25% - 30px);
+    width: calc(33.33% - 30px);
     margin: 0 15px;
     margin: 15px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     margin-bottom: 30px;
-    border-radius: 20px;
+    border-radius: 20px 20px 20px 20px;
     transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
     opacity: 0;
     visibility: hidden;
     margin-top: 50px;
+    background-color: white;
 }
 
 .card.visible {
@@ -134,16 +139,17 @@ header {
 
 .card img {
     width: 100%;
-    height: 300px;
-    border-radius: 20px;  /* Assurez-vous que cela correspond au border-radius de .card */
+    height: 400px;
+    border-radius: 20px 20px 0px 0px;
     display: block;
+    scale: 0.8;
 }
 
 .card-info {
     padding: 15px;
     text-align: center; /* Centrer le texte si vous préférez */
     background-color: #ffffff;
-    border-radius: 20px;
+    border-radius: 0 0 20px 20px;;
 }
 
 .card-info h3 {
@@ -171,7 +177,7 @@ header {
 
 
 footer {
-    background-color: #f2f2f21c;
+    background-color: #3affce1c;
     padding: 50px 0;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
