@@ -1,46 +1,56 @@
-
-document.addEventListener("DOMContentLoaded", function()
-{
-    const urlParams = new URLSearchParams(window.location.search);
-    const articleId = urlParams.get('articleId');
-
-    axios.get(`../public/articleId.json`)
-        .then(function(response) {
-            // on vas vérifié si l'article existe
-            const article = response.data.articles.find(article => article.id === articleId);
-            if (article) {
-                document.getElementById('articleTitle').innerText = article.title;
-                document.getElementById('articleImage').src = article.imageUrl;
-                document.getElementById('articleImage').alt = article.title;
-                document.getElementById('articleDescription').innerText = article.description;
-                document.getElementById('articlePrice').innerText = `${article.price}`;
-            } else {
-                console.log('Article non trouvé');
-            }
-        })
-        .catch(function(error) {
-            console.log(error);
-        });
-});
-
+// article-detail.js
 document.addEventListener("DOMContentLoaded", function() {
-    // Obtenir l'ID de l'article à partir de l'URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const articleId = urlParams.get('articleId');
+    // Extrait l'identifiant de l'article depuis l'URL
+    const queryParams = new URLSearchParams(window.location.search);
+    const articleId = queryParams.get('articleId');
 
-    document.getElementById('addToCartButton').addEventListener('click', function() {
-        axios.get('../../public/articleId.json')
-            .then(function(response) {
-                const article = response.data.articles.find(p => p.id == articleId);
-                if (article) {
-                    add_basket(article);
-                    alert('Article ajouté au panier.');
-                } else {
-                    alert('Article non trouvé.');
-                }
-            })
-            .catch(function(error) {
-                console.error('Erreur lors de la récupération des détails de l\'article :', error);
-            });
-    });
+    if (articleId) {
+        fetchArticleDetails(articleId);
+    } else {
+        console.error('Article ID is missing from the URL');
+    }
 });
+
+function fetchArticleDetails(articleId) {
+    // URL de l'API pour récupérer les détails de l'article
+    const detailsUrl = `https://api.kedufront.juniortaker.com/item/${articleId}`;
+
+    fetch(detailsUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (!data.ok) {
+                throw new Error('Item not found');
+            }
+            const article = data.item;
+            // Mise à jour de l'interface utilisateur avec les détails de l'article
+            document.getElementById('articleTitle').innerText = article.name;
+            document.getElementById('articleDescription').innerText = article.description;
+            document.getElementById('articlePrice').innerText = `${article.price}€`;
+            // Appel de la fonction pour afficher l'image, en passant l'ID de l'article
+            displayArticleImage(articleId);
+            // Ajouter l'article au panier ici
+            // document.getElementById('addToCartButton').addEventListener('click', () => addToCart(article));
+        })
+        .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+        });
+}
+
+function displayArticleImage(articleId) {
+    const imageUrl = `https://api.kedufront.juniortaker.com/item/picture/${articleId}`;
+    fetch(imageUrl)
+        .then(response => response.blob())
+        .then(imageBlob => {
+            const imageObjectURL = URL.createObjectURL(imageBlob);
+            document.getElementById('articleImage').src = imageObjectURL;
+        })
+        .catch(error => {
+            console.error('Failed to load article image:', error);
+        });
+}
+
