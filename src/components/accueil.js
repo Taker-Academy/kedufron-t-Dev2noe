@@ -33,7 +33,6 @@ function get_update_articles()
     .then(items => {
         const container = document.querySelector('.cards-container');
         container.innerHTML = '';
-
         items.forEach(item => {
             const card = document.createElement('div');
             card.className = 'card';
@@ -78,9 +77,8 @@ function get_item_by_id(itemId) {
     });
 }
 
-// Exécutez cette fonction au chargement de la page pour mettre à jour l'interface utilisateur avec les données de l'API
+// met à jour l'interface utilisateur avec les données de l'API
 document.addEventListener('DOMContentLoaded', get_update_articles);
-
 
 // Écouter l'événement de défilement et exécuter la fonction
 window.addEventListener('scroll', add_visible_class);
