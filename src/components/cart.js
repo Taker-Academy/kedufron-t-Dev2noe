@@ -1,5 +1,16 @@
+document.addEventListener('DOMContentLoaded', function() {
+    // Sélectionne le bouton de paiement par son ID
+});
+
 document.addEventListener("DOMContentLoaded", function()
 {
+    const checkoutButton = document.getElementById('finalize-order');
+    
+    // Attache un écouteur d'événements pour le clic sur le bouton de paiement
+    checkoutButton.addEventListener('click', function(event) {
+        event.preventDefault(); // Empêche toute action par défaut (par exemple, si le bouton est de type 'submit')
+        submitOrder(); // Exécute la fonction de soumission de commande
+    });
     const cartItemsContainer = document.getElementById('cart-items');
     const cartItemTemplate = document.getElementById('cart-item-template').content;
 
