@@ -24,11 +24,14 @@ body {
     border-bottom: 1px solid #eee;
 }
 
-.cart-item-image {
-    width: 50px; /* ou une autre taille appropriée */
-    height: 50px;
-    margin-right: 10px;
-}
+.cart-item-img {
+    scale: 1.2;
+    width: 100px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 5px; /* Si vous voulez des coins arrondis */
+    /* Ajouter d'autres propriétés CSS selon besoin */
+  }
 
 .cart-item-quantity {
     display: flex;

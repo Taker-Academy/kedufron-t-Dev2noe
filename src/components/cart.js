@@ -1,75 +1,52 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Sélectionne le bouton de paiement par son ID
-});
+document.addEventListener("DOMContentLoaded", displayCartItems);
 
-document.addEventListener("DOMContentLoaded", function()
-{
-    const checkoutButton = document.getElementById('finalize-order');
-    
-    // Attache un écouteur d'événements pour le clic sur le bouton de paiement
-    checkoutButton.addEventListener('click', function(event) {
-        event.preventDefault(); // Empêche toute action par défaut (par exemple, si le bouton est de type 'submit')
-        submitOrder(); // Exécute la fonction de soumission de commande
-    });
-    const cartItemsContainer = document.getElementById('cart-items');
-    const cartItemTemplate = document.getElementById('cart-item-template').content;
+document.getElementById('addToCartButton').addEventListener('click', () => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const articleId = queryParams.get('articleId');
 
-    // Fonction pour charger et afficher les articles du panier
-    function loadCartItems() {
-        const basket = get_basket();
-        cartItemsContainer.innerHTML = '';
-
-        basket.forEach(product => {
-            const cartItem = cartItemTemplate.cloneNode(true);
-
-            // Mise à jour des éléments du clone avec les données du produit
-            cartItem.querySelector('.cart-item-image').src = product.imageUrl;
-            cartItem.querySelector('.cart-item-title').textContent = product.title;
-            cartItem.querySelector('.cart-item-price').textContent = `${product.price}`;
-            cartItem.querySelector('input[type=number]').value = product.quantity;
-            cartItem.querySelector('.cart-item-total').textContent = `${(parseInt(product.price, 10) * product.quantity).toFixed(2)}`;
-            
-            // gestionnaires d'événements pour les boutons plus, moins, remove, quantité
-            cartItem.querySelector('.remove-item').addEventListener('click', function() {
-                remove_from_basket(product.id);
-            
-                loadCartItems();
-            });
-            cartItem.querySelector('.quantity-plus').addEventListener('click', function() {
-                change_quantity(product.id, 1);
-                loadCartItems();
-            });
-            cartItem.querySelector('.quantity-minus').addEventListener('click', function() {
-                change_quantity(product.id, -1);
-                loadCartItems();
-            });
-            const quantityInput = cartItem.querySelector('input[type=number]'); // changer la quantité manuellement
-            quantityInput.addEventListener('change', function() {
-                let newQuantity = parseInt(quantityInput.value, 10);  //transforme le string de la quantité en integer
-                if (isNaN(newQuantity) || newQuantity < 1) {
-                    alert('La quantité ne peut pas être inférieure à 1.');
-                    quantityInput.value = product.quantity;
-                    return;
-                }
-                change_quantity(product.id, newQuantity - product.quantity);
-                loadCartItems();
-            });
-            cartItemsContainer.appendChild(cartItem);
-        });
-        const totalAmount = calculate_total();
-        const totalElement = document.getElementById('total-amount');
-        if (totalElement) {
-            totalElement.textContent = `$${totalAmount}`;
-        }
+    if (articleId) {
+        fetchArticleDetailsAndAddToCart(articleId);
+    } else {
+        console.error('Article ID is missing from the URL');
     }
-    loadCartItems();
-
 });
 
-function save_basket(basket)
+function fetchArticleDetailsAndAddToCart(articleId)
 {
-    localStorage.setItem("basket", JSON.stringify(basket));
+    const detailsUrl = `https://api.kedufront.juniortaker.com/item/${articleId}`;
 
+    fetch(detailsUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.ok && data.item) {
+                const article = {
+                    id: data.item._id,
+                    name: data.item.name,
+                    description: data.item.description,
+                    price: data.item.price,
+                    image: data.item.image, // Utilisez l'URL complète ici
+                    quantity: 1
+                };
+                add_basket(article);
+                alert("Article ajouté avec succès au panier!");
+            } else {
+                throw new Error('Item not found');
+            }
+        })
+        .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+            alert("Erreur lors de l'ajout de l'article au panier. Veuillez réessayer.");
+        });
+}
+
+
+function save_basket(basket) {
+    localStorage.setItem("basket", JSON.stringify(basket));
 }
 
 function get_basket()
@@ -83,20 +60,17 @@ function get_basket()
     }
 }
 
-function add_basket(product)
+function add_basket(article)
 {
-    let basket = get_basket();
-    let found_product = basket.find(p => p.id == product.id);
+    let basket = get_basket(); // Récupère le panier actuel
+    let foundProductIndex = basket.findIndex(p => p.id === article.id);
 
-    if (found_product != undefined) {
-        found_product.quantity++;
+    if (foundProductIndex !== -1) {
+        basket[foundProductIndex].quantity++; // Augmente la quantité si le produit existe déjà
     } else {
-        product.quantity = 1;
-        basket.push(product);
-    
+        basket.push(article); // Ajoute le nouvel article au panier
     }
-    save_basket(basket);
-
+    save_basket(basket); // Sauvegarde le panier dans le localStorage
 }
 
 function remove_from_basket(productId)
@@ -105,7 +79,6 @@ function remove_from_basket(productId)
 
     basket = basket.filter(p => p.id != productId);
     save_basket(basket);
-
 }
 
 function change_quantity(productId, quantity)
@@ -139,5 +112,42 @@ function calculate_total()
             console.error('Invalid item in basket:', item);
         }
     });
-    return total.toFixed(2); // Returns the total formatted as a string with two decimals
+    return total.toFixed(2);
+}
+
+function displayCartItems() {
+    let basket = get_basket();
+    const cartItemsContainer = document.getElementById('cart-items');
+    cartItemsContainer.innerHTML = '';
+
+    basket.forEach(item => {
+        const itemElement = document.createElement('div');
+        itemElement.className = 'cart-item';
+        const imgElement = document.createElement('img');
+        imgElement.className = 'cart-item-img'; // Ajout de la classe pour appliquer le style
+        imgElement.id = `article-img-${item.id}`; // ID unique pour chaque image
+        itemElement.innerHTML = `
+            <div class="cart-item-price">${item.price}€</div>
+            <div class="cart-item-quantity">${item.quantity}</div>
+            <div class="cart-item-total">${(item.price * item.quantity).toFixed(2)}€</div>
+        `;
+        itemElement.prepend(imgElement); // Ajoute l'image au début de l'élément de l'article
+        cartItemsContainer.appendChild(itemElement);
+
+        // Affichage de l'image avec la fonction modifiée
+        displayArticleImageForCart(item.id, imgElement.id);
+    });
+}
+
+function displayArticleImageForCart(articleId, imgElementId) {
+    const imageUrl = `https://api.kedufront.juniortaker.com/item/picture/${articleId}`;
+    fetch(imageUrl)
+        .then(response => response.blob())
+        .then(imageBlob => {
+            const imageObjectURL = URL.createObjectURL(imageBlob);
+            document.getElementById(imgElementId).src = imageObjectURL;
+        })
+        .catch(error => {
+            console.error('Failed to load article image:', error);
+        });
 }
