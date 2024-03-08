@@ -13,30 +13,29 @@ body {
 
 .article-content {
     display: flex;
-    align-items: center; /* Aligner les enfants verticalement */
-    margin: auto; /* Centrer dans la page */
-    max-width: 1200px; /* Maximum width */
+    align-items: center;
+    margin: auto;
+    max-width: 1200px;
     padding: 20px;
-    margin-bottom: 100px;   
-   /* Espace entre les éléments enfants */
+    margin-bottom: 100px;
 }
 
 .article-content img {
     scale: 1;
     height: 500px;
-    max-width: 50%; /* Limite la largeur de l'image à 50% du conteneur */
-    border-radius: 20px 0 0 20px; /* Bord arrondi à gauche */
+    max-width: 50%;
+    border-radius: 20px 0 0 20px;
 }
 
 .article-info {
     height: 400px;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centrer le contenu sur l'axe des Y */
+    justify-content: center;
     background-color: black;
     color: white;
     padding: 50px;
-    border-radius: 0 20px 20px 0; /* Bord arrondi à droite */
+    border-radius: 0 20px 20px 0;
 }
 
 .add-to-cart-button {
@@ -46,10 +45,10 @@ body {
     color: black;
     padding: 15px 30px;
     border: none;
-    width: auto; /* Largeur automatique */
+    width: auto;
     margin-top: 50px;
-    cursor: pointer; /* Change le curseur au survol */
-    align-self: start; /* Alignement auto sur l'axe horizontal */
+    cursor: pointer;
+    align-self: start;
     border-radius: 20px 20px 20px 20px;
     margin-left: 20px;
 }
@@ -63,15 +62,12 @@ body {
     font-size: 50px;
 }
 
-
-/* Style pour le survol du bouton */
 .add-to-cart-button:hover {
-    background-color: #f0f0f0; /* Légèrement plus foncé que le blanc */
+    background-color: #f0f0f0;
 }
 
-/* Style pour le bouton lorsqu'il est cliqué */
 .add-to-cart-button:active {
-    background-color: #e0e0e0; /* Encore plus foncé pour l'effet cliqué */
+    background-color: #e0e0e0;
 }
 
 @media (max-width: 768px) {
@@ -99,7 +95,4 @@ body {
     .add-to-cart-button {
         align-self: center;
     }
-
-
-
 }

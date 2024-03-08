@@ -9,8 +9,8 @@ body, html {
 }
 
 header {
-    width: 100%; /* Ajustez la largeur à 100% de la largeur de la fenêtre/viewport */
-    box-sizing: border-box; /* Assurez-vous que padding et border sont inclus dans la largeur */
+    width: 100%;
+    box-sizing: border-box;
     position: fixed;
     z-index: 1000;
     font-family: 'Fredoka One';
@@ -102,10 +102,10 @@ header {
 .cards-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around; /* ou 'space-between' pour un espacement égal entre les cartes */
-    align-items: stretch; /* Cela assure que toutes les cartes ont la même hauteur */
-    padding: 0; /* Ajustez selon les besoins */
-    margin-top: 130px; /* Espace depuis le haut */
+    justify-content: space-around;
+    align-items: stretch;
+    padding: 0;
+    margin-top: 130px;
     background: rgb(2,0,36);
     background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(238,229,173,0.9934174353335085) 0%, rgba(255,173,0,1) 100%);
 }
@@ -141,7 +141,7 @@ header {
 
 .card-info {
     padding: 15px;
-    text-align: center; /* Centrer le texte si vous préférez */
+    text-align: center;
     background-color: #ffffff;
     border-radius: 0 0 20px 20px;;
 }
@@ -210,7 +210,7 @@ footer {
 }
 
 .footer-column ul li a:hover {
-    text-decoration: underline; /* Ajoute un soulignement au survol */
+    text-decoration: underline;
 }
 
 @media (max-width: 768px) {
