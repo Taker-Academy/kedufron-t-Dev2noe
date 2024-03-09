@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", displayCartItems);
+document.addEventListener("DOMContentLoaded", display_cart_items);
 
 document.getElementById('addToCartButton').addEventListener('click', () => {
     const queryParams = new URLSearchParams(window.location.search);
@@ -29,7 +29,7 @@ function fetchArticleDetailsAndAddToCart(articleId)
                     name: data.item.name,
                     description: data.item.description,
                     price: data.item.price,
-                    image: data.item.image, // Utilisez l'URL complète ici
+                    image: data.item.image,
                     quantity: 1
                 };
                 add_basket(article);
@@ -81,20 +81,6 @@ function remove_from_basket(productId)
     save_basket(basket);
 }
 
-function change_quantity(productId, quantity)
-{
-    let basket = get_basket();
-    let found_product = basket.find(p => p.id == productId);
-
-    if (found_product != undefined) {
-        found_product.quantity += quantity;
-        if (found_product.quantity < 1) {
-            found_product.quantity = 1;
-        }
-        save_basket(basket);
-    }
-
-}
 
 function calculate_total()
 {
@@ -115,28 +101,86 @@ function calculate_total()
     return total.toFixed(2);
 }
 
-function displayCartItems() {
+function attachEventHandlers(item) {
+    // Gestionnaire pour le bouton de réduction de la quantité
+    document.querySelector(`.quantity-minus[data-id='${item.id}']`).addEventListener('click', function() {
+        change_quantity(item.id, item.quantity - 1);
+        display_cart_items();
+    });
+
+    // Gestionnaire pour le bouton d'augmentation de la quantité
+    document.querySelector(`.quantity-plus[data-id='${item.id}']`).addEventListener('click', function() {
+        change_quantity(item.id, item.quantity + 1);
+        display_cart_items();
+    });
+
+    // Gestionnaire pour le bouton de suppression d'article
+    document.querySelector(`.remove-item[data-id='${item.id}']`).addEventListener('click', function() {
+        remove_from_basket(item.id);
+        display_cart_items();
+    });
+}
+
+function change_quantity(productId, newQuantity)
+{
+    let basket = get_basket();
+    let foundProduct = basket.find(p => p.id == productId);
+
+    if (foundProduct) {
+        foundProduct.quantity = newQuantity;
+        if (foundProduct.quantity < 1) {
+            foundProduct.quantity = 1;
+        }
+        save_basket(basket);
+    }
+}
+
+function display_cart_items()
+{
     let basket = get_basket();
     const cartItemsContainer = document.getElementById('cart-items');
-    cartItemsContainer.innerHTML = '';
+    cartItemsContainer.innerHTML = ''; // Vide le conteneur à chaque appel pour reconstruire les éléments du panier
 
     basket.forEach(item => {
-        const itemElement = document.createElement('div');
-        itemElement.className = 'cart-item';
-        const imgElement = document.createElement('img');
-        imgElement.className = 'cart-item-img'; // Ajout de la classe pour appliquer le style
-        imgElement.id = `article-img-${item.id}`; // ID unique pour chaque image
-        itemElement.innerHTML = `
-            <div class="cart-item-price">${item.price}€</div>
-            <div class="cart-item-quantity">${item.quantity}</div>
-            <div class="cart-item-total">${(item.price * item.quantity).toFixed(2)}€</div>
-        `;
-        itemElement.prepend(imgElement); // Ajoute l'image au début de l'élément de l'article
+        const itemElement = create_cart_item(item);
         cartItemsContainer.appendChild(itemElement);
-
-        // Affichage de l'image avec la fonction modifiée
-        displayArticleImageForCart(item.id, imgElement.id);
+        update_cart_item(item, itemElement);
+        attachEventHandlers(item, itemElement); // Attacher les gestionnaires d'événements ici
     });
+    updateTotal(); // Mise à jour du montant total
+}
+
+function update_cart_item(item, itemElement)
+{
+    const imgId = `cart-img-${item.id}`;
+    const imageElement = itemElement.querySelector(`img[data-id="${item.id}"]`);
+    if (imageElement.src !== item.image) {
+        displayArticleImageForCart(item.id, imgId);
+    }
+    // Mise à jour du texte des prix et des quantités
+    itemElement.querySelector('.cart-item-price').textContent = `${item.price}€`;
+    itemElement.querySelector('.cart-item-total').textContent = `${(item.price * item.quantity).toFixed(2)}€`;
+    itemElement.querySelector('.quantity-input').value = item.quantity;
+}
+
+function create_cart_item(item)
+{
+    const itemElement = document.createElement('div');
+    itemElement.className = 'cart-item';
+    itemElement.setAttribute('data-id', item.id);
+    const imgId = `cart-img-${item.id}`;
+    itemElement.innerHTML = `
+        <img class="cart-item-image" src="" alt="Product Image" id="${imgId}" data-id="${item.id}">
+        <span class="cart-item-price">${item.price}€</span>
+        <div class="cart-quantity-control">
+            <button class="quantity-minus" data-id="${item.id}">-</button>
+            <input type="number" class="quantity-input" data-id="${item.id}" value="${item.quantity}" min="1">
+            <button class="quantity-plus" data-id="${item.id}">+</button>
+        </div>
+        <button class="remove-item" data-id="${item.id}"><i class="fa fa-trash"></i></button>
+        <span class="cart-item-total">${(item.price * item.quantity).toFixed(2)}€</span>
+    `;
+    return itemElement;
 }
 
 function displayArticleImageForCart(articleId, imgElementId) {

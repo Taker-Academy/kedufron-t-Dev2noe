@@ -30,16 +30,11 @@ body {
     height: auto;
     object-fit: cover;
     border-radius: 5px; /* Si vous voulez des coins arrondis */
-    /* Ajouter d'autres propriétés CSS selon besoin */
-  }
-
-.cart-item-quantity {
-    display: flex;
-    align-items: center;
 }
 
-.cart-item-quantity button {
-    margin: 0 5px;
+
+.cart-item-price {
+    margin-left: 150px;
 }
 
 .remove-item {
@@ -54,9 +49,9 @@ body {
 }
 
 .cart-item-image {
-    height: 100%;
-    width: 210px;
-    margin-left: -80px;
+    scale: 0.8;
+    height: 200px;
+    width: 200px;
 }
 
 .cart-item-title {
@@ -64,9 +59,13 @@ body {
     font-size: 40px;
 }
 
-.cart-item-quantity {
-    margin-right: -130px;
+.quantity-input {
     margin-left: 150px;
+}
+
+.quantity-minus {
+    margin-left: 150px;
+    margin-right: -150px;
 }
 
 .remove-item {
@@ -162,11 +161,7 @@ body {
         margin: 0;
         margin-right: -30px;
     }
-    .cart-item-image {
-        scale : 0.85;
-        margin-right: 0;
-        margin-left: -100px;
-    }
+
     .cart-item-price {
         margin-left: -70px;
         z-index: 1000;
