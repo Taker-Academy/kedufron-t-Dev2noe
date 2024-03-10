@@ -51,6 +51,10 @@ header {
 }
 
 .navbar-item {
+    display: flex;
+    align-items: left;
+    justify-content: flex-start;
+    margin-left: 60px;
     text-decoration: none;
     color: rgb(255, 176, 57);
     font-weight: 900;
