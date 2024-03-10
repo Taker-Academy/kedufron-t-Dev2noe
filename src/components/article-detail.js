@@ -5,14 +5,14 @@ document.addEventListener("DOMContentLoaded", function() {
     const articleId = queryParams.get('articleId');
 
     if (articleId) {
-        fetchArticleDetails(articleId);
+        fetch_Article_Details(articleId);
     } else {
         console.error('Article ID is missing from the URL');
     }
 });
 
-function fetchArticleDetails(articleId) {
-    // URL de l'API pour récupérer les détails de l'article
+function fetch_Article_Details(articleId)
+{
     const detailsUrl = `https://api.kedufront.juniortaker.com/item/${articleId}`;
 
     fetch(detailsUrl)
@@ -31,10 +31,7 @@ function fetchArticleDetails(articleId) {
             document.getElementById('articleTitle').innerText = article.name;
             document.getElementById('articleDescription').innerText = article.description;
             document.getElementById('articlePrice').innerText = `${article.price}€`;
-            // Appel de la fonction pour afficher l'image, en passant l'ID de l'article
             displayArticleImage(articleId);
-            // Ajouter l'article au panier ici
-            // document.getElementById('addToCartButton').addEventListener('click', () => addToCart(article));
         })
         .catch(error => {
             console.error('There has been a problem with your fetch operation:', error);

@@ -1,3 +1,12 @@
+document.addEventListener('DOMContentLoaded', function() {
+    // Ajout de l'écouteur d'événements au bouton 'Finalize Order'
+    const finalizeOrderButton = document.getElementById('finalize-order');
+    finalizeOrderButton.addEventListener('click', function(event) {
+      event.preventDefault();
+      submitOrder();
+    });
+});
+
 document.addEventListener("DOMContentLoaded", display_cart_items);
 
 document.getElementById('addToCartButton').addEventListener('click', () => {
@@ -5,13 +14,13 @@ document.getElementById('addToCartButton').addEventListener('click', () => {
     const articleId = queryParams.get('articleId');
 
     if (articleId) {
-        fetchArticleDetailsAndAddToCart(articleId);
+        fetch_article(articleId);
     } else {
         console.error('Article ID is missing from the URL');
     }
 });
 
-function fetchArticleDetailsAndAddToCart(articleId)
+function fetch_article(articleId)
 {
     const detailsUrl = `https://api.kedufront.juniortaker.com/item/${articleId}`;
 
@@ -62,15 +71,15 @@ function get_basket()
 
 function add_basket(article)
 {
-    let basket = get_basket(); // Récupère le panier actuel
+    let basket = get_basket();
     let foundProductIndex = basket.findIndex(p => p.id === article.id);
 
     if (foundProductIndex !== -1) {
         basket[foundProductIndex].quantity++; // Augmente la quantité si le produit existe déjà
     } else {
-        basket.push(article); // Ajoute le nouvel article au panier
+        basket.push(article);
     }
-    save_basket(basket); // Sauvegarde le panier dans le localStorage
+    save_basket(basket);
     updateTotal();
 }
 
@@ -83,18 +92,20 @@ function remove_from_basket(productId)
 }
 
 function calculate_total() {
-    let basket = get_basket(); // Récupère le panier depuis le localStorage
-    let total = 0; // Initialise le total à 0
+    let basket = get_basket();
+    let total = 0;
 
     // Calcule le total en parcourant chaque article dans le panier
     basket.forEach(item => {
-        let price = parseFloat(item.price); // Assurez-vous que le prix est un nombre flottant
-        total += price * item.quantity; // Ajoute le produit du prix par la quantité au total
+        let price = parseFloat(item.price);
+        total += price * item.quantity;
     });
 
-    return total.toFixed(2); // Retourne le total arrondi à deux chiffres après la virgule
+    return total.toFixed(2);
 }
-function attachEventHandlers(item) {
+
+
+function my_events_handlers(item) {
     // Gestionnaire pour le bouton de réduction de la quantité
     document.querySelector(`.quantity-minus[data-id='${item.id}']`).addEventListener('click', function() {
         change_quantity(item.id, item.quantity - 1);
@@ -140,7 +151,7 @@ function display_cart_items()
         const itemElement = create_cart_item(item);
         cartItemsContainer.appendChild(itemElement);
         update_cart_item(item, itemElement);
-        attachEventHandlers(item, itemElement); // Attacher les gestionnaires d'événements ici
+        my_events_handlers(item, itemElement); // Attacher les gestionnaires d'événements ici
     });
     updateTotal(); // Mise à jour du montant total
 }
@@ -150,7 +161,7 @@ function update_cart_item(item, itemElement)
     const imgId = `cart-img-${item.id}`;
     const imageElement = itemElement.querySelector(`img[data-id="${item.id}"]`);
     if (imageElement.src !== item.image) {
-        displayArticleImageForCart(item.id, imgId);
+        display_article_image(item.id, imgId);
     }
     // Mise à jour du texte des prix et des quantités
     itemElement.querySelector('.cart-item-price').textContent = `${item.price}€`;
@@ -178,7 +189,8 @@ function create_cart_item(item)
     return itemElement;
 }
 
-function displayArticleImageForCart(articleId, imgElementId) {
+function display_article_image(articleId, imgElementId)
+{
     const imageUrl = `https://api.kedufront.juniortaker.com/item/picture/${articleId}`;
     fetch(imageUrl)
         .then(response => response.blob())
@@ -191,10 +203,66 @@ function displayArticleImageForCart(articleId, imgElementId) {
         });
 }
 
-function updateTotal() {
+function updateTotal()
+{
     const totalAmount = calculate_total();
     const totalElement = document.getElementById('total-amount');
     if (totalElement) {
         totalElement.textContent = `${totalAmount}€`;
     }
 }
+
+function submitOrder() {
+    // Récupération des informations de commande à partir du formulaire HTML
+    const email = document.getElementById('email').value;
+    const name = document.getElementById('first-name').value + ' ' + document.getElementById('last-name').value;
+    const address = document.getElementById('address').value;
+    const city = document.getElementById('city').value;
+    const zip = document.getElementById('zip').value;
+    const fullAddress = `${address}, ${city}, ${zip}`;
+    const basket = get_basket();
+    const cartItems = basket.map(item => ({ id: item.id, amount: item.quantity }));
+    const orderData = {
+      email: email,
+      name: name,
+      address: fullAddress,
+      cart: cartItems
+    };
+
+    // Envoi de la requête POST à l'API
+    fetch('https://api.kedufront.juniortaker.com/order/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(orderData)
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.ok) {
+        alert(`Commande soumise avec succès. ID de commande: ${data.command_id}`);
+        empty_basket();
+      } else {
+        // Gérer les erreurs de validation ou d'autres erreurs
+        alert(`Erreur lors de la soumission de la commande: ${data.message}`);
+      }
+    })
+    .catch(error => {
+      console.error('Erreur lors de l\'envoi de la commande:', error);
+    });
+  }
+
+  function empty_basket()
+  {
+    // Vide le panier dans le localStorage
+    localStorage.removeItem("basket");
+    const cartItemsContainer = document.getElementById('cart-items');
+    if (cartItemsContainer) {
+      cartItemsContainer.innerHTML = '';
+    }
+    const totalElement = document.getElementById('total-amount');
+    if (totalElement) {
+      totalElement.textContent = '0.00€';
+    }
+  }
+  

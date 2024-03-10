@@ -29,7 +29,7 @@ body {
     width: 100px;
     height: auto;
     object-fit: cover;
-    border-radius: 5px; /* Si vous voulez des coins arrondis */
+    border-radius: 5px;
 }
 
 
@@ -119,12 +119,11 @@ body {
 }
 
 .order-summary {
-    flex: 1; /* Cela donnera au résumé de la commande la même flexibilité que le formulaire */
-    /* ... autres styles ... */
+    flex: 1;
 }
 
 #payment-methods {
-    width: 100%; /* Contrôle la taille de l'image */ /* Maintient le ratio d'aspect de l'image */
+    width: 100%;
     scale: 0.6;
     margin-left: 40px;
 }
