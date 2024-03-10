@@ -71,6 +71,7 @@ function add_basket(article)
         basket.push(article); // Ajoute le nouvel article au panier
     }
     save_basket(basket); // Sauvegarde le panier dans le localStorage
+    updateTotal();
 }
 
 function remove_from_basket(productId)
@@ -81,26 +82,18 @@ function remove_from_basket(productId)
     save_basket(basket);
 }
 
+function calculate_total() {
+    let basket = get_basket(); // Récupère le panier depuis le localStorage
+    let total = 0; // Initialise le total à 0
 
-function calculate_total()
-{
-    let basket = get_basket();
-    let total = 0;
-
-    if (basket == []) {
-        return total;
-    }
+    // Calcule le total en parcourant chaque article dans le panier
     basket.forEach(item => {
-        let price = Number(item.price.replace('€', ''));
-        if (!isNaN(price) && typeof item.quantity === 'number') {
-            total += price * item.quantity;
-        } else {
-            console.error('Invalid item in basket:', item);
-        }
+        let price = parseFloat(item.price); // Assurez-vous que le prix est un nombre flottant
+        total += price * item.quantity; // Ajoute le produit du prix par la quantité au total
     });
-    return total.toFixed(2);
-}
 
+    return total.toFixed(2); // Retourne le total arrondi à deux chiffres après la virgule
+}
 function attachEventHandlers(item) {
     // Gestionnaire pour le bouton de réduction de la quantité
     document.querySelector(`.quantity-minus[data-id='${item.id}']`).addEventListener('click', function() {
@@ -117,6 +110,7 @@ function attachEventHandlers(item) {
     // Gestionnaire pour le bouton de suppression d'article
     document.querySelector(`.remove-item[data-id='${item.id}']`).addEventListener('click', function() {
         remove_from_basket(item.id);
+        updateTotal();
         display_cart_items();
     });
 }
@@ -133,6 +127,7 @@ function change_quantity(productId, newQuantity)
         }
         save_basket(basket);
     }
+    updateTotal();
 }
 
 function display_cart_items()
@@ -194,4 +189,12 @@ function displayArticleImageForCart(articleId, imgElementId) {
         .catch(error => {
             console.error('Failed to load article image:', error);
         });
+}
+
+function updateTotal() {
+    const totalAmount = calculate_total();
+    const totalElement = document.getElementById('total-amount');
+    if (totalElement) {
+        totalElement.textContent = `${totalAmount}€`;
+    }
 }

@@ -148,22 +148,29 @@ body {
     .cart-item-title {
         display: none;
     }
-    .cart-item-quantity {
-        margin: 0;
-        scale: 0.9;
-        margin-right: -30px;
+
+    .cart-item-image {
+        margin-left: -70px;
+        scale: 0.5;
+        margin-right: 50px;
     }
 
-    .quantity-input {
+    .quantity-input{
+        height: 10px;
         width: 40px;
     }
+
+    .quantity-minus {
+        margin-left: 10px;
+    }
+
     .remove-item {
         margin: 0;
         margin-right: -30px;
     }
 
     .cart-item-price {
-        margin-left: -70px;
+        margin-left: -100px;
         z-index: 1000;
     }
     .cart-item-total {
